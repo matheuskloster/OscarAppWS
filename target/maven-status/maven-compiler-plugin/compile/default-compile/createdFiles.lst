@@ -1,0 +1,3 @@
+OscarApp\App\Entity\Usuario.class
+OscarApp\App\Controller\UsuarioController.class
+OscarApp\App\App.class
