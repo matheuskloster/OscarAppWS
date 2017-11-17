@@ -45,9 +45,8 @@ public class UsuarioController {
 	}
 
 	@RequestMapping("/usuarios/{username}")
-	public String findByUsername(@PathVariable String username) throws Exception {
-		ResponseEntity<Usuario> u = ResponseEntity.status(HttpStatus.OK).body(this.usuarioRepository.findByUsername(username));
-		return u.getBody().getPassword();
+	public ResponseEntity findByUsername(@PathVariable String username) throws Exception {
+		return ResponseEntity.status(HttpStatus.OK).body(this.usuarioRepository.findByUsername(username));
 	}
 
 }
