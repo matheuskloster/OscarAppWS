@@ -1,5 +1,7 @@
 package OscarApp.App.Controller;
 
+import org.json.JSONObject;
+
 //import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,17 @@ public class UsuarioController {
 	@GetMapping("/usuarios")
 	public ResponseEntity get() throws Exception {
 		return ResponseEntity.status(HttpStatus.OK).body(this.usuarioRepository.findAll());
+	}
+
+	@PostMapping("/login")
+	public ResponseEntity login(@RequestBody String body) throws Exception {
+		Usuario usuario = new ObjectMapper().readValue(body, Usuario.class);
+		Usuario usuarioReal = this.usuarioRepository.findByUsername(usuario.getUsername());
+		if (usuarioReal == null || !(usuario.getUsername().equals(usuarioReal.getUsername())
+				&& usuario.getPassword().equals(usuarioReal.getPassword()))) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Usuário ou senha inválidos");
+		}
+		return ResponseEntity.status(HttpStatus.OK).body("{}");
 	}
 
 	@PostMapping("/usuarios")
